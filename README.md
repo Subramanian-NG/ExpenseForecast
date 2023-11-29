@@ -2,12 +2,12 @@ ExpenseForecaset is a web application, which use Plaid APIs to fetch financial b
 
 Tech stack used
 
-NodeJS
-HTML
-Python
-AWS services(EC2,Lambda,RDS,Sagemaker,Cognito)
-Plaid APIs
+NodeJS,
+HTML,
+Python,
+AWS services(EC2,Lambda,RDS,Sagemaker,Cognito),
+Plaid APIs.
 
-Lambda function code - predictExpenseLambda.js
-ML model creation code - deploymodel.py
+Lambda function code - predictExpenseLambda.js,
+ML model creation code - deploymodel.py,
 Node App frontend and backend code - transactions folder
