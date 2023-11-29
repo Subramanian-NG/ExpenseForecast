@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+          crossorigin="anonymous"></script>
+        <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+        <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script-->
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <!--script src="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/jquery.simplePagination.min.js"></script-->
+        <!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/simplePagination.min.css"-->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/simplePagination.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/jquery.simplePagination.js"></script>
+        <script type="module" src="js/client.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+        <title>ExpenseForecast</title>
+      </head>
+<body>
+  <div class="container w-75 pt-5">
+    <!--h3>ExpenseForecast</h3-->
+    <!--p>Analyze and predict your expense!</p-->
+    <img alt="logo"  src="images/logo.PNG">
+    <div id="signedIn" class="w-75 border border-3 rounded p-3 mx-auto">
+      <p id="welcomeMessage">Welcome !!</p>
+
+      <div>
+        <p id="banksMsg"></p>
+        <!--button type="button" class="btn btn-primary button-md my-2" id="connectToBank" onClick="connectToBank()">Connect my
+          bank!</button-->
+          <button type="button" class="btn btn-primary button-md my-2" id="connectToBank">Connect to my
+            bank!</button>
+      </div>
+      <div id="loadingDiv" class="loader" style="margin-left: 350px;display:none"></div>
+      <div>
+        <button type="button" class="btn btn-outline-secondary button-md my-2" id="fetchTransactions"style="float:left">Fetch Transactions</button>
+        <button type="button" class="btn btn-outline-secondary button-md my-2" id="predictExpense"style="float:left;display:none">Predict Expense</button>
+        <p id="statusMsg" style="display:none;margin-left: 271px;">Looking up your transactions</p>
+        <p id="statusMsgPredict" style="display:none;margin-left: 271px;">Predicting your expenses</p>
+        <a style="display:none;float:right" id="graphViewLink" href="javascript:toggleDataView('graphView')">Graph View</a>
+        <a style="display:none;float:right" id="tableViewLink" href="javascript:toggleDataView('tableView')">Table View</a>
+        <a style="display:none;float:right" id="backLink" href="javascript:toggleDataView('backLink')">Back to Transactions</a>
+        <div id="graphViewData" style="display:none">
+          <label for="accountType" style="margin-left: 36px;">Select Account Type:</label>
+          <select id="accountType">
+          <option value="all">All Accounts</option>
+          </select>
+          <canvas id="pivotChart"></canvas>
+        </div>
+
+        <div id="tableViewData">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th class="text-end">Amount</th>
+              <th>Account</th>
+            </tr>
+          </thead>
+          <tbody id="transactionTable"></tbody>
+        </table>
+        <div id="pagination-container"></div>
+        </div>
+
+        <div id="predictedExpenseView" style="display:none">
+          <div>
+            <label for="monthSelect">Select Month: </label>
+            <select id="monthSelect"></select>
+          </div>
+          <canvas id="pivotChart2"></canvas>
+          <br>
+          <div>
+            <label for="categorySelect">Select Category: </label>
+            <select id="categorySelect"></select>
+          </div>
+          <canvas id="pivotChart1"  width="800" height="400"></canvas>
+        </div>
+        <!--div class="w-75 border border-1 p-2 rounded-2" id="deubgCalls"-->
+          <!--p>Debug calls:</p-->
+          <!--button type="button" class="btn btn-outline-secondary button-md my-2" id="serverRefresh" onclick="serverRefresh()">Server
+            refresh</button-->
+          <!--button type="button" class="btn btn-outline-secondary button-md my-2" id="clientRefresh" onclick="clientRefresh()">Client-side
+            refresh</button-->
+          <!--div>
+            <select id="deactivateBankSelect" style="min-width: 150px;"></select>
+            <button type="button" class="btn btn-warning button-md my-2" id="deactivateBank">Stop using this
+              bank</button>
+          </div-->
+        <!--/div-->
+      </div>
+      <a href="https://expenseforecastprod.auth.us-east-1.amazoncognito.com/logout?client_id=6tkdhodk594he4rhn0umuc2me2&logout_uri=https%3A%2F%2F54.88.191.25%3A8443%2Findex.html">
+        <button type="button" class="btn btn-danger my-3" id="signOut" onclick="signOut()">Sign out</button>
+      </a>
+      <!--button type="button" class="btn btn-danger my-3" id="signOut" onclick="signOut()">Sign out</button-->
+      <div id="output"></div>
+    </div>
+  </div>
+</body>
+</html>
+<script>
+  function toggleDataView(viewType) {
+    if(viewType == "backLink")
+    {
+      $("#predictExpense").show();
+      $("#fetchTransactions").show();
+      $("#backLink").hide();
+      $("#predictedExpenseView").hide();
+    }
+    if (viewType == "tableView" || viewType == "backLink") {
+      $("#graphViewLink").show();
+      $("#tableViewLink").hide();
+
+      $("#graphViewData").hide();
+      $("#tableViewData").show();
+    } else {
+      $("#graphViewLink").hide();
+      $("#tableViewLink").show();
+
+      $("#graphViewData").show();
+      $("#tableViewData").hide();
+    }
+}
+</script>

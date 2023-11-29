@@ -1,0 +1,31 @@
+{
+  "name": "transactions-tutorial",
+  "version": "1.0.0",
+  "description": "Transactions tutorial for the plaid-tutorial-resources repo",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "nodemon server/server.js",
+    "stop": "sudo pkill -f 'node.*' || true",
+    "watch": "nodemon server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "css": "sass scss/custom.scss:public/css/custom_bootstrap.css"
+  },
+  "author": "Todd Kerpelman",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.1499.0",
+    "body-parser": "^1.20.1",
+    "bootstrap": "^5.2.3",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "escape-html": "^1.0.3",
+    "express": "^4.18.2",
+    "fast-csv": "^4.3.6",
+    "moment": "^2.29.4",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.20",
+    "plaid": "^12.3.0",
+    "sqlite": "^4.1.2",
+    "uuid": "^9.0.0"
+  }
+}

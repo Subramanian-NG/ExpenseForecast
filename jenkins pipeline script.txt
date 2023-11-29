@@ -1,0 +1,63 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_ACCESS_KEY_ID     = 'ASIARYGGELY74R63PSMC'
+        AWS_SECRET_ACCESS_KEY = 'J0LOhyx9JbzlgLNXcf+x/hhD3xep80U9KSyp3XKt'
+		AWS_SESSION_TOKEN	  = 'FwoGZXIvYXdzEEAaDFIDd4dE6rlhywnemiLUAY6USXQjda7U0qPMhwUGuCzNJa7P0PdCkniLyHMhLUeUJM+TNJEeqKKM476kNjNjq4SU1P4rZzEKqelvNZbWIsa62GRGSJQX+A2QjBI0fpZdOU+rwzwvvBhxMqKj9OaKN0XE9blgRJlrY+i0fnVOpbK9PqCIMD7f3p6EL8LNJ7KeLFmBVikoQNhrGKy/2ZQKaAHhTaY4dbcVW9t4eLUZykQ7nykYR9oGTLTMQPrueyThyAQn/THQ20t9N0cDMU0fpHM3oy+mNjmYGkz325m56ehh8wROKPfCi6sGMi2jR/IaNqDNfWR+w301z/bWBgTslT4N3nsxCeFM86GSfHfo6HM4hjUJx1LPqrQ='
+        AWS_DEFAULT_REGION    = 'us-east-1'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+					echo "Environment Variables:"
+
+					echo "Cloning Git Repository:"
+					//bat 'git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/ExpenseForecast -b main'
+				}
+			}
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                script {
+					echo "Installing dependencies"
+					//bat 'cd ExpenseForecast/transactions/start && npm install'
+                    echo "Installed dependencies"
+                }
+            }
+        }
+
+        stage('Build and Test') {
+            steps {
+                script {
+                    echo "Testing the application"
+                    bat 'node --version'
+					echo "Build and test completed"
+                }
+            }
+        }
+
+        stage('Deploy to EC2') {
+            steps {
+                script {
+					//def privateKeyPath = "E:\\academic\\Cloud clomputing and Blockchain\\cloud project\\labsuser.ppk"
+					def privateKeyPath = "labsuser.ppk"
+					def remoteUser = "ec2-user"
+					def remoteHost = "54.88.191.25"
+					
+					//def scriptFile = "E:\\academic\\Cloud clomputing and Blockchain\\cloud project\\temp_script.sh"
+					def scriptFile = "temp_script.sh"
+					
+					// Use plink to execute the script remotely
+					//bat 'plink.exe -i \"$privateKeyPath\" $remoteUser@$remoteHost \"bash -s\" < $scriptFile'
+					
+					bat 'plink.exe -i labsuser.ppk ec2-user@ec2-54-88-191-25.compute-1.amazonaws.com \"bash -s\" < temp_script.sh'
+					
+		        }
+            }
+        }
+    }
+}
